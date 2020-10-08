@@ -187,12 +187,12 @@ def model_fn(mode, features, labels, params):
                 summary_img = tf.nn.relu(network_output)[:, :, :, 0:1]  # Put negative values to zero
                 tf.summary.image('output/prediction', summary_img, max_outputs=1)
             elif prediction_type == PredictionType.MULTILABEL:
-                labels_visualization = tf.cast(prediction_labels, tf.int32)
-                labels_visualization = multiclass_to_label_image(labels_visualization, classes_file)
-                tf.summary.image('output/prediction_image',
-                                 tf.image.resize_images(labels_visualization,
-                                                        tf.cast(tf.shape(labels_visualization)[1:3] / 3, tf.int32)),
-                                 max_outputs=1)
+                # labels_visualization = tf.cast(prediction_labels, tf.int32)
+                # labels_visualization = multiclass_to_label_image(labels_visualization, classes_file)
+                # tf.summary.image('output/prediction_image',
+                #                  tf.image.resize_images(labels_visualization,
+                #                                         tf.cast(tf.shape(labels_visualization)[1:3] / 3, tf.int32)),
+                #                  max_outputs=1)
                 class_dim = prediction_probs.get_shape().as_list()[-1]
                 for c in range(0, class_dim):
                     tf.summary.image('output/prediction_probs_{}'.format(c),

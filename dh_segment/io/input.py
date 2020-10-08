@@ -22,7 +22,7 @@ def input_fn(input_data: Union[str, List[str]], params: dict, input_label_dir: s
              num_threads: int=4, image_summaries: bool=False):
     """
     Input_fn for estimator
-    
+
     :param input_data: input data. It can be a directory containing the images, it can be
         a list of image filenames, or it can be a path to a csv file.
     :param params: params from utils.Params object
@@ -221,11 +221,11 @@ def input_fn(input_data: Union[str, List[str]], params: dict, input_label_dir: s
                 label_export = prepared_batch['labels']
                 if prediction_type == utils.PredictionType.CLASSIFICATION:
                     label_export = utils.class_to_label_image(label_export, classes_file)
-                if prediction_type == utils.PredictionType.MULTILABEL:
-                    label_export = tf.cast(label_export, tf.int32)
-                    label_export = utils.multiclass_to_label_image(label_export, classes_file)
-                tf.summary.image('input/label',
-                                 tf.image.resize_images(label_export, shape_summary_img), max_outputs=1)
+                    tf.summary.image('input/label',
+                                     tf.image.resize_images(label_export, shape_summary_img), max_outputs=1)
+                # if prediction_type == utils.PredictionType.MULTILABEL:
+                #     label_export = tf.cast(label_export, tf.int32)
+                #     label_export = utils.multiclass_to_label_image(label_export, classes_file)
             if 'weight_maps' in prepared_batch:
                 tf.summary.image('input/weight_map',
                                  tf.image.resize_images(prepared_batch['weight_maps'][:, :, :, None],
