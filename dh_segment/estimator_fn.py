@@ -2,7 +2,7 @@ import tensorflow as tf
 from .utils import PredictionType, ModelParams, TrainingParams, \
     class_to_label_image, multiclass_to_label_image
 import numpy as np
-from .network.model import inference_resnet_v1_50, inference_vgg16, inference_u_net
+from .network.model import inference_resnet_v1_50, inference_resnet_v1_152, inference_vgg16, inference_u_net
 
 
 def model_fn(mode, features, labels, params):
@@ -37,6 +37,15 @@ def model_fn(mode, features, labels, params):
                                                 is_training=(mode == tf.estimator.ModeKeys.TRAIN)
                                                 )
         key_restore_model = 'resnet_v1_50'
+    elif model_params.pretrained_model_name == 'resnet152':
+        network_output = inference_resnet_v1_152(input_images,
+                                                model_params,
+                                                model_params.n_classes,
+                                                use_batch_norm=model_params.batch_norm,
+                                                weight_decay=model_params.weight_decay,
+                                                is_training=(mode == tf.estimator.ModeKeys.TRAIN)
+                                                )
+        key_restore_model = 'resnet_v1_152'
     elif model_params.pretrained_model_name == 'unet':
         network_output = inference_u_net(input_images,
                                          model_params,

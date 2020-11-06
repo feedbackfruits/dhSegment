@@ -93,6 +93,27 @@ class ResNetModelParams:
     ]
     CORRECT_VERSION = False
 
+class ResNet152ModelParams:
+    PRETRAINED_MODEL_FILE = 'pretrained_models/resnet_v1_152.ckpt'
+    INTERMEDIATE_CONV = None
+    UPSCALE_PARAMS = [
+        # (Filter size (depth bottleneck's output), number of bottleneck)
+        (32, 0),
+        (64, 0),
+        (128, 0),
+        (256, 0),
+        (512, 0)
+    ]
+    SELECTED_LAYERS_UPSCALING = [
+        # Must have the same length as resnet_upscale_params
+        True,
+        True,
+        True,
+        True,
+        True
+    ]
+    CORRECT_VERSION = False
+
 
 class UNetModelParams:
     PRETRAINED_MODEL_FILE = None
@@ -118,6 +139,8 @@ class ModelParams(BaseParams):
             model_class = VGG16ModelParams
         elif self.pretrained_model_name == 'resnet50':
             model_class = ResNetModelParams
+        elif self.pretrained_model_name == 'resnet152':
+            model_class = ResNet152ModelParams
         elif self.pretrained_model_name == 'unet':
             model_class = UNetModelParams
         else:

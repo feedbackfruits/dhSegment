@@ -1,9 +1,11 @@
 _MODEL = [
     'inference_vgg16',
     'inference_resnet_v1_50',
+    'inference_resnet_v1_152',
     'inference_u_net',
     'vgg_16_fn',
     'resnet_v1_50_fn'
+    'resnet_v1_152_fn'
 ]
 
 __all__ = _MODEL
